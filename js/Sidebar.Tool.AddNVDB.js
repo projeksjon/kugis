@@ -20,8 +20,8 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		  	 var crs =  geojson.crs.properties.name.replace("urn:ogc:def:crs:", "").replace("::", ":");
                 WktUtils.reprojectGeoJson(geojson, crs, "epsg:4326", 8, function (geojson) {
                   
-                  var fileName = file.name.toLowerCase().replace(".geojson", "");
-                  layerlist.addLayer( fileName, geojson, color); 
+                  
+                  layerlist.addLayer( name, geojson, color); 
                   
                 });
 		  	
