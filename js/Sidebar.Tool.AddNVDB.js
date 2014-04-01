@@ -12,7 +12,11 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		var url = encodeURIComponent("http://vegnett.vegdata.no/nvdb/api/vegnett/"+fylke+"/"+kommune+".json");
 		$.ajax({
 		  url: "http://folk.ntnu.no/torbjvi/nvdbproxy.php?url="+url,
-		  success: function (data) { console.log(data) },
+		  success: function (data) { 
+
+		  	var color = "black";
+		  	var name = "Vegnett_"+kommunenummer;
+		  	layerlist.addLayer( name, data, color);) },
 		});
 		
 	},
