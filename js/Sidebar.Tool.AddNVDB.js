@@ -7,11 +7,11 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 	},
 	execute: function (kommunenummer) {
 		var fylke = parseInt(kommunenummer.substring(0,2));
-		console.log(kommunenummer);
-		var kommune = parseInt(kommunenummer.substring(2,2));
-		var url = "http://vegnett.vegdata.no/nvdb/api/vegnett/"+fylke+"/"+kommune+".json";
+		console.log(kommunenummer.substring(1,2));
+		var kommune = parseInt(kommunenummer.substring(2,4));
+		var url = encodeURIComponent("http://vegnett.vegdata.no/nvdb/api/vegnett/"+fylke+"/"+kommune+".json");
 		$.ajax({
-		  url: url,
+		  url: "http://folk.ntnu.no/torbjvi/nvdbproxy.php?url="+url,
 		  success: function (data) { console.log(data) },
 		});
 		
