@@ -13,10 +13,11 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		$.ajax({
 		  url: "http://folk.ntnu.no/torbjvi/nvdbproxy.php?url="+url,
 		  success: function (data) { 
-
+		  	cons
 		  	var color = "black";
 		  	var name = "Vegnett_"+kommunenummer;
-		  	layerlist.addLayer( name, data, color); 
+
+		  	layerlist.addLayer( name, JSON.parse(data), color); 
 			},
 		});
 		
