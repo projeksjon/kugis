@@ -16,7 +16,8 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 
 		  	var color = "black";
 		  	var name = "Vegnett_"+kommunenummer;
-		  	layerlist.addLayer( name, data, color);) },
+		  	layerlist.addLayer( name, data, color); 
+			},
 		});
 		
 	},
