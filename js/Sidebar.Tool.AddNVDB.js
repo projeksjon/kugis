@@ -7,6 +7,7 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 	},
 	execute: function (kommunenummer) {
 		var fylke = parseInt(kommunenummer.substring(0,2));
+		console.log(kommunenummer);
 		var kommune = parseInt(kommunenummer.substring(2,2));
 		var url = "http://vegnett.vegdata.no/nvdb/api/vegnett/"+fylke+"/"+kommune+".json";
 		$.ajax({
