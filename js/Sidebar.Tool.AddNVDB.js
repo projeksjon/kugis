@@ -25,7 +25,8 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		var button = L.DomUtil.create("button", "");
 		button.innerHTML = "Legg til data";
 		var con = this;
-		button.onClick = function (e) {
+		button.onclick = function (e) {
+			console.log("Clicked");
 			con.execute(con._kommunenummer);
 		}
 		element.appendChild(button);
