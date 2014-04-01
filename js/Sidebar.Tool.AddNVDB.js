@@ -28,7 +28,7 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		button.onClick = function (e) {
 			con.execute(con._kommunenummer);
 		}
-	
+		element.appendChild(button);
 		return element;
 		
 	}
