@@ -13,11 +13,18 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		$.ajax({
 		  url: "http://folk.ntnu.no/torbjvi/nvdbproxy.php?url="+url,
 		  success: function (data) { 
-		  	cons
+		  	
 		  	var color = "black";
 		  	var name = "Vegnett_"+kommunenummer;
-
-		  	layerlist.addLayer( name, JSON.parse(data), color); 
+		  	var geojson = JSON.parse(data);
+		  	 var crs =  geojson.crs.properties.name.replace("urn:ogc:def:crs:", "").replace("::", ":");
+                WktUtils.reprojectGeoJson(geojson, crs, "epsg:4326", 8, function (geojson) {
+                  
+                  var fileName = file.name.toLowerCase().replace(".geojson", "");
+                  layerlist.addLayer( fileName, geojson, color); 
+                  
+                });
+		  	
 			},
 		});
 		
