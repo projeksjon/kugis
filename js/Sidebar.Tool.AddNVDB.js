@@ -23,7 +23,7 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 		L.DomEvent.addListener(this._distance, "click", L.DomEvent.stopPropagation);
 		element.appendChild(this._distance);
 		var button = L.DomUtil.create("button", "");
-		var button.innerHTML = "Legg til data";
+		button.innerHTML = "Legg til data";
 		var con = this;
 		button.onClick = function (e) {
 			con.execute(con._kommunenummer);
