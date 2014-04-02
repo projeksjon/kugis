@@ -35,6 +35,7 @@ Sidebar.Tool.Intersect = Sidebar.Tool.extend({
 				logger.done();
 				logger = new Logger();
 				name = l1.fileName+"_"+l2.fileName;
+				intersectionWorker.terminate();
 				layerlist.addLayer(name, e.data.fc);
 			}
 			else

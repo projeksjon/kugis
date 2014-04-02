@@ -32,7 +32,7 @@ Sidebar.Tool.Buffer2 = Sidebar.Tool.extend({
 				var color = "black";
 				
 				var name = layer.fileName+"_"+distance+"mbuffer";
-				
+				bufferWorker.terminate();
 				layerlist.addLayer( name, geojson, color);
 			}
 

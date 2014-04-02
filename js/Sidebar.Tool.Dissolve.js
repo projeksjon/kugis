@@ -30,6 +30,7 @@ Sidebar.Tool.Dissolve = Sidebar.Tool.extend({
 					var l = L.geoJson(e.data.geojson, { style: {color: color } });
 					if(!name)
 						name = layer.fileName+"_diss";
+					dissolveWorker.terminate();
 					layerlist.addLayer(name, e.data.geojson, color);
 					
 				}

@@ -6,7 +6,7 @@ Sidebar.Tool.Union = Sidebar.Tool.extend({
 	afterDrop: function (event, context) {
 
 		var message = "test";
-		dissolveWorker = new Worker('workers/dissolve.js');
+		var dissolveWorker = new Worker('workers/dissolve.js');
 		if(this.layer1 == null)
 			this.layer1 = event.draggable[0].this._layer;
 		else
@@ -14,6 +14,7 @@ Sidebar.Tool.Union = Sidebar.Tool.extend({
 		if(this.layer1 !== null && this.layer2 !== null) {
 			this.toggleOptions();
 			this.execute(this.layer1, this.layer2);
+			dissolveWorker.terminate();
 		 	this.layer1 = this.layer2 = null;
 		 }
 

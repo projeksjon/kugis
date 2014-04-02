@@ -37,6 +37,7 @@ Sidebar.Tool.Difference2 = Sidebar.Tool.extend({
 							logger.done();
 							logger = new Logger();
 							name = l1.fileName+"-"+l2.fileName;
+							differenceWorker.terminate();
 							layerlist.addLayer(name, e.data.fc, "black");
 						}
 						else {
