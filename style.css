@@ -191,7 +191,8 @@ li.logger-list {
   position: absolute;
   bottom: 5px;
   width: 165px !important;
-  height: 60px;;
+  height: 60px;
+  z-index: -1;
 }
 div.feature-extractor {
   position: fixed;

@@ -56,7 +56,9 @@ var WktUtils = {};
 			if(e.data.msg === "done") {
 				logger.done();
 				logger = new Logger();
+				projectWorker.terminate();
 				callback(e.data.geojson);
+
 			}
 			else {
 				logger.step();
