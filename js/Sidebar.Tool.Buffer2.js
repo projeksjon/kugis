@@ -23,7 +23,7 @@ Sidebar.Tool.Buffer2 = Sidebar.Tool.extend({
 		var _reproject32632cb = function (geojson) {
 			//L.geoJson(geojson, { style: { color: "black"() } }).addTo(map);
 			if(con.dissolve) { 
-				Sidebar.Tool.Dissolve.prototype.execute(geojson, con.asdsadasda, layer.fileName+"_"+distance+"mbuffer" );
+				Sidebar.Tool.Dissolve.prototype.execute(geojson, con.asdsadasda, layer.fileName+"_"+distance+"mbuffer",true );
 			}
 			else if(con.asdsadasda != null){
 				con.asdsadasda(geojson);
