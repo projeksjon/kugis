@@ -22,7 +22,7 @@ var WktUtils = {};
 		}
 		else {
 			var num = epsgstring.split(":")[1];
-			var url =  "http://spatialreference.org/ref/epsg/"+num.toString()+"/proj4js/?jsoncallback=?";
+			var url =  "http://epsg.io/"+num.toString()+".js?download";
 			$.getJSON(url,{} ,function() {  }).done(function() {  });
 		}	
 	}
