@@ -14,9 +14,6 @@ var WktUtils = {};
 	
 	};
 	WktUtils.getEpsgString = function (epsgstring, callback) {
-		Proj4js.defs["EPSG:32632"] = "+proj=utm +zone=32 +datum=WGS84 +units=m +no_defs";
-		Proj4js.defs["EPSG:32633"] = "+proj=utm +zone=33 +datum=WGS84 +units=m +no_defs";
-		Proj4js.defs["EPSG:4326"] = "+proj=longlat +datum=WGS84 +no_defs";
 		if(Proj4js.defs[epsgstring]) {
 			return true;
 		}
