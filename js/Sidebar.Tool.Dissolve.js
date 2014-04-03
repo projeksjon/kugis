@@ -11,7 +11,7 @@ Sidebar.Tool.Dissolve = Sidebar.Tool.extend({
 
 	},
 	execute: function (geojson, callback, name) {
-		var dissolveWorker = new Worker('workers/dissolve2.js');
+		var dissolveWorker = new Worker('workers/dissolve2_clipper.js');
 		var features = [];
 		var map = this._map;	
 		logger.newLog("Dissolve", geojson.features.length, 0);

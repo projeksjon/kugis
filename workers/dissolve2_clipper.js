@@ -1,64 +1,68 @@
-importScripts('../libs/javascript.util.js', '../libs/jsts.js'); 
+importScripts('../libs/javascript.util.js', '../libs/jsts.js', '../libs/clipper.js'); 
 var disjoints = [];
 var reader = new jsts.io.GeoJSONReader();
 var parser =  new jsts.io.GeoJSONParser();
+var scale = 1000000000.0;
+var convertPath = function (c, from, scale) {
+        if(Array.isArray(c[0])) {
+            var e = [];
+            for(var i = 0; i<c.length;i++) {
+                e.push(convertPath(c[i], from, scale));
+            }
+         }
+         else {
+            if(!from) {
+                for(var i = 0; i<c.length;i++) {
+                    var p = [c[i].X/scale, c[i].Y/scale];
+                    c[i] = p;
+
+                }
+
+            }
+            return from ? {X: c[0], Y: c[1]} : c;
+         }
+
+        return e;
+    };
+
 function mergePolygons(first, second) {
-        var first_path = latLngs2Path(first),
-            second_path = latLngs2Path(second);
-        var scale = 10000;
-        ClipperLib.JS.ScaleUpPaths(first_path, scale);
-        ClipperLib.JS.ScaleUpPaths(second_path, scale);
+        
+        var scale = 1000000000;
+        ClipperLib.JS.ScaleUpPaths(first, scale);
+        ClipperLib.JS.ScaleUpPaths(second, scale);
         var cpr = new ClipperLib.Clipper();
-        cpr.AddPaths(first_path, ClipperLib.PolyType.ptSubject, true);
-        cpr.AddPaths(second_path, ClipperLib.PolyType.ptClip, true);
+        cpr.AddPaths(first, ClipperLib.PolyType.ptSubject, true);
+        cpr.AddPaths(second, ClipperLib.PolyType.ptClip, true);
         var fillType = ClipperLib.PolyFillType.pftNonZero;
         var result = new ClipperLib.Paths();
-        cpr.Execute(ClipperLib.ClipType.ctUnion, result, fillType, fillType);
-        return path2LatLngs(result);
-
-        function latLngs2Path(latlngs) {
-            return convert(latlngs, true);
-        }
-        function path2LatLngs(path) {
-            return convert(path, false);
-        }
-        function convert(coords, from) {
-            var paths = [];
-            for (var i=0; i<coords.length; i++) {
-                var poly = coords[i],
-                    subpath = [];
-                for (var j=0; j<poly.length; j++) {
-                    var latlng = poly[j],
-                        coord = from ? {X: latlng.lng, Y: latlng.lat} :
-                                       [latlng.Y / scale, latlng.X / scale];
-                    subpath.push(coord);
-                }
-                paths.push(subpath);
-            }
-            return paths;
-        }
+        var r = cpr.Execute(ClipperLib.ClipType.ctUnion, result, fillType, fillType);
+        return result;
+        
     }
 onmessage = function(evt) {
   var geojson = evt.data.geojson;
-  if( !geojson.features[0].properties["kugisCreated"] && geojson.features[0].type.indexOf('olygon') > 0 ) {
+  /*if( !geojson.features[0].properties["kugisCreated"] && geojson.features[0].type.indexOf('olygon') > 0 ) {
     for(var i = 0; i<geojson.features.length;i++) {
 
       var f2 = reader.read(geojson.features[i]);
       f2.geometry = f2.geometry.buffer(0.0000000001); // This fixes a lot of errors with this process
       geojson.features[i].geometry = parser.write(f2.geometry); 
     }
-  }
+  }*/
   while(geojson.features.length >0) {
-    var f1 = reader.read(geojson.features.shift());
+    var f1 = geojson.features.shift();
     disjoint = true;
-    var g1 = f1.geometry;
+    var g1 = reader.read(f1.geometry);
     for (var i = 0; i<geojson.features.length;i++) {
-      var f2 = reader.read(geojson.features[i]);
-      var g2 = f2.geometry;
+      var f2 = geojson.features[i];
+      var g2 = reader.read(f2.geometry);
     
-      if(g1.intersects(g2)) {
+      if(true) {
         geojson.features.splice(i,1);
-        union = g1.union(g2);
+        var p1 = convertPath(f1.geometry.coordinates, true);
+        var p2 = convertPath(f2.geometry.coordinates, true);
+
+        union = mergePolygons(p1,p2);
         disjoint = false;
         break;
       }
@@ -67,7 +71,7 @@ onmessage = function(evt) {
     if(disjoint)
       disjoints.push(g1);
     else {
-      f1.geometry = parser.write(union);
+      f1.geometry.coordinates = convertPath(union,false,scale);
       geojson.features.push(f1);
     }
     postMessage({msg: "update"});

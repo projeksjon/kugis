@@ -44,17 +44,7 @@ Sidebar.Tool.AddNVDB = Sidebar.Tool.extend({
 			console.log("Clicked");
 			con.execute(con._kommunenummer.value);
 		}
-		var addDropdown = function = () {
-			var url = encodeURIComponent("https://www.vegvesen.no/nvdb/api/omrader/kommuner.json");
-			$.ajax({
-		  url: "http://folk.ntnu.no/torbjvi/nvdbproxy.php?url="+url,
-		  success: function (data) { 
-		  		var kommuner = JSON.parse(data).kommuner;
-		  	
-		  	
-			},
-		});
-		};
+
 		element.appendChild(button);
 		return element;
 		
