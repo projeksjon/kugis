@@ -29,7 +29,7 @@ function mergePolygons(first, second) {
                     subpath = [];
                 for (var j=0; j<poly.length; j++) {
                     var latlng = poly[j],
-                        coord = from ? {X: latlng[0], Y: latlng[1]} :
+                        coord = from ? {X: latlng.lng, Y: latlng.lat} :
                                        [latlng.Y / scale, latlng.X / scale];
                     subpath.push(coord);
                 }
@@ -37,7 +37,7 @@ function mergePolygons(first, second) {
             }
             return paths;
         }
-    };
+    }
 onmessage = function(evt) {
   var geojson = evt.data.geojson;
   if( !geojson.features[0].properties["kugisCreated"] && geojson.features[0].type.indexOf('olygon') > 0 ) {
