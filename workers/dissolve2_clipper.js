@@ -79,7 +79,6 @@ onmessage = function(evt) {
   var fc = {type: "FeatureCollection", features: [], properties: { kugis: true } };
   for(var i =0;i<disjoints.length;i++) {
     var feature = { type: "Feature", geometry: parser.write(disjoints[i]), properties: {} };
-    feature.properties["kugisCreated"] = "true";
     fc.features.push(feature);
   }
   postMessage({geojson: fc, disjoints: disjoints});
