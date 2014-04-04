@@ -11,7 +11,7 @@ Sidebar.Tool.Dissolve = Sidebar.Tool.extend({
 
 	},
 	execute: function (geojson, callback, name, useClipper) {
-		if (useClipper) {
+		if (false) {
 			var dissolveWorker = new Worker('workers/dissolve2_clipper.js');
 		}
 		else {
