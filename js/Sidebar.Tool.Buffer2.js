@@ -73,7 +73,7 @@ Sidebar.Tool.Buffer2 = Sidebar.Tool.extend({
 			if(e.data.msg === "done") {
 				logger.done();
 				logger = new Logger();
-				WktUtils.reprojectGeoJson(e.data.fc, "EPSG:32632",  "EPSG:4326", 8, _reproject32632cb);
+				WktUtils.reprojectGeoJson(e.data.fc, getUTMzone(layer),  "EPSG:4326", 8, _reproject32632cb);
 				
 			}
 		};
