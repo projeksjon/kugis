@@ -44,8 +44,27 @@ Sidebar.Tool.Buffer2 = Sidebar.Tool.extend({
 			bufferWorker.postMessage({geojson: geojson, dist: distance});
 		};
 
-
-		WktUtils.reprojectGeoJson(geojson, "EPSG:4326",  "EPSG:32632", 3, _reproject4326cb);
+		var getUTMzone = function (layer) {
+			
+			var southBase = "327";
+			var northBase = "326";
+			var center = layer.getBounds().getCenter();
+			var zoneNo = (Math.floor((center.lng + 180)/6)) + 1;
+			if(center.lat > 0) {
+				var base = northBase;
+			}
+			else {
+				var base = southBase;
+			}
+			if(zoneNo < 10) {
+				var zoneString = "0"+zoneNo.toString();
+			}
+			else {
+				var zoneString = zoneNo.toString();
+			}
+			return "EPSG:"+base+zoneString;
+		}
+		WktUtils.reprojectGeoJson(geojson, "EPSG:4326",  getUTMzone(layer), 3, _reproject4326cb);
 
 	
 		
