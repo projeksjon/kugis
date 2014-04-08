@@ -110,7 +110,9 @@ function init() {
     }
     );
 
-  
+  var about = L.control.attribution({position: "bottomleft", prefix: false });
+  about.addAttribution('<a href="http://projeksjon.no/kugis-client-side-gis-using-leaflet-and-jsts-english/">About</a>');
+  about.addTo(map);
   
   //var b = L.polygon(boundary);
   //var bgUrl = 'http://opencache.statkart.no/gatekeeper/gk/gk.open_gmaps?layers=terreng_norgeskart&zoom={z}&x={x}&y={y}';
